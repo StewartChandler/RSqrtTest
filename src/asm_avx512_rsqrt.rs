@@ -24,6 +24,8 @@ impl QRSqrt for AsmAVX512RSqrt {
         // From the intel software development manual, pg. 2642:
         // "MXCSR exception flags are not affected by this instruction and floating-point exceptions
         // are not reported."
+        //
+        // So we can mark it as 'preserves_flags'
         unsafe {
             asm!(
                 "vrsqrt14ss {0} {0} {0}",

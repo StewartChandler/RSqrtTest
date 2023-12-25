@@ -7,3 +7,5 @@ mod quake_rsqrt;
 mod sse_rsqrt;
 mod avx512_rsqrt;
 mod asm_avx512_rsqrt;
+mod basic_rsqrt;
+mod exact_rsqrt;
