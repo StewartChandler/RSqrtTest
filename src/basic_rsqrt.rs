@@ -1,7 +1,7 @@
 use crate::QRSqrt;
 
 /// An almost trivial basic implementation of the rsqrt function to approximate the reciprocal
-/// square root by calculating the result directly. 
+/// square root by calculating the result directly.
 pub struct BasicRSqrt;
 
 impl QRSqrt for BasicRSqrt {

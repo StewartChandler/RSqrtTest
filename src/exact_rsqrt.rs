@@ -1,7 +1,7 @@
 use crate::QRSqrt;
 
 /// A baseline implementation of the reciprocal square root by using `f64` and downcasting to get
-/// an exact answer to use as a baseline. 
+/// an exact answer to use as a baseline.
 pub struct ExactRSqrt;
 
 impl QRSqrt for ExactRSqrt {

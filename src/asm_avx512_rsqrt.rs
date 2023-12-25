@@ -5,7 +5,7 @@ use std::arch::asm;
 
 /// An appromation of the reciprocal square root using the [`vrsqrt14ss`] AVX512 instruction on
 /// x86_x64, implemented using inline asm to avoid calls to intrensics.  One of the downsides of
-/// this method is that 
+/// this method is that
 ///
 /// From intel's documentation: "The maximum relative error for this approximation is less than
 /// 2^-14."
