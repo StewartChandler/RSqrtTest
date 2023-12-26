@@ -68,8 +68,12 @@ macro_rules! test_seq {
 }
 
 fn main() {
-    let base: f32 = 100000.0f32.powf(1.0f32 / 4097.0);
-    let mut opt = OpTester::<4098>::new((0..).map(|i| 0.001f32 * base.powf(i as f32)));
+    const NUMBER: usize = 1usize << 24;
+
+    let base: f32 = 100000.0f32.powf(1.0f32 / ((NUMBER - 1) as f32));
+    let iter = (0..).map(|i| 0.001f32 * base.powf(i as f32));
+    let mut opt = OpTester::<NUMBER>::new(iter);
+
 
     println!(
         "Tests for different implementations of `q_rsqrt` (approximate reciprocal square root):"
@@ -77,21 +81,21 @@ fn main() {
     println!(
         "Method Name               Average Error  Maximum Error  95 Percentile  99 Percentile"
     );
-    test_seq!(BasicRSqrt, &mut opt, 4098);
-    test_seq!(QuakeRSqrt, &mut opt, 4098);
+    test_seq!(BasicRSqrt, &mut opt, NUMBER);
+    test_seq!(QuakeRSqrt, &mut opt, NUMBER);
     #[cfg(all(
         any(target_arch = "x86", target_arch = "x86_64"),
         target_feature = "sse"
     ))]
-    test_seq!(SSERSqrt, &mut opt, 4098);
+    test_seq!(SSERSqrt, &mut opt, NUMBER);
     
     #[cfg(all(
         target_arch = "x86_64",
         target_feature = "avx512f",
         feature = "nightly"
     ))]
-    test_seq!(AVX512RSqrt, &mut opt, 4098);
+    test_seq!(AVX512RSqrt, &mut opt, NUMBER);
     #[cfg(all(target_arch = "x86_64", target_feature = "avx512f"))]
-    test_seq!(AsmAVX512RSqrt, &mut opt, 4098);
+    test_seq!(AsmAVX512RSqrt, &mut opt, NUMBER);
 
 }
