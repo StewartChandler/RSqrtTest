@@ -44,7 +44,7 @@ example::q_rsqrt:
         add     rsp, 56
         ret
 ```
-Anyways, we can see that the intrinsic wasn't outlined, and the function is performing unnecessary loads and stores given that the argument `num` in the first place is stored in the `xmm0` register, ideally it should be a matter of a single instruction `vrsqrt14ss xmm0 xmm0 xmm0`.  For reference, we can compare to equivalent SSE instruction `rsqrtss` and the [assembly output](https://godbolt.org/z/z364heTT8) for that.
+Anyways, we can see that the intrinsic wasn't inlined, and the function is performing unnecessary loads and stores given that the argument `num` in the first place is stored in the `xmm0` register, ideally it should be a matter of a single instruction `vrsqrt14ss xmm0 xmm0 xmm0`.  For reference, we can compare to equivalent SSE instruction `rsqrtss` and the [assembly output](https://godbolt.org/z/z364heTT8) for that.
 ```rust
 use std::arch::x86_64::{__m128, _mm_set_ss, _mm_store_ss, _mm_rsqrt_ss};
 
